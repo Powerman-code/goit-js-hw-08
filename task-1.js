@@ -40,14 +40,21 @@
 }
 
 import galleryImages from "./gallery-items.js";
-console.log(galleryImages);
+// console.log(galleryImages);
 
-console.log(galleryCreatorMarkup(galleryImages));
+// console.log(galleryCreatorMarkup(galleryImages));
 
 const gallaryElementContainer = document.querySelector(".js-gallery");
-console.log(gallaryElementContainer);
+// console.log(gallaryElementContainer);
+const modal = document.querySelector(".js-lightbox");
 
 const gallaryMarkup = galleryCreatorMarkup(galleryImages);
+
+const modalCloseButton = document.querySelector(".lightbox__button");
+
+const imageModalRef = document.querySelector(".lightbox__image");
+
+const backdropRef = document.querySelector(".lightbox__overlay");
 
 gallaryElementContainer.insertAdjacentHTML("beforeend", gallaryMarkup);
 
@@ -73,3 +80,57 @@ function galleryCreatorMarkup(galleryImages) {
     .join("");
   console.log(markup);
 }
+
+gallaryElementContainer.addEventListener("click", onGalleryClick);
+
+function onGalleryClick(evt) {
+  evt.preventDefault();
+  console.log(evt.target.nodeName);
+  // console.log(evt.target.src);
+  // evt.target.alt;
+  window.addEventListener("keydown", onEscKeyPress);
+  if (evt.target.nodeName !== "IMG") {
+    return;
+  }
+  openModal();
+  imageModalRef.src = evt.target.dataset.source;
+  console.log(imageModalRef.src);
+}
+
+function openModal() {
+  modal.classList.add("is-open");
+  // imageModalRef.src =
+  // modal.img.src = evt.target.img.src;
+  // evt.target.img.src;
+}
+
+function closeModal() {
+  window.removeEventListener("keydown", onEscKeyPress);
+  modal.classList.remove("is-open");
+  imageModalRef.src = "";
+}
+
+function onEscKeyPress(evt) {
+  console.log(evt.code);
+  if (evt.code === "Escape") {
+    closeModal();
+  }
+  if (evt.code === "ArrowLeft") {
+  }
+  if (evt.code === "ArrowRight") {
+  }
+  console.log(evt);
+}
+
+backdropRef.addEventListener("click", closeModal);
+
+modalCloseButton.addEventListener("click", closeModal);
+
+// console.log(openModal());
+
+// dirBox.style.height = 30 + i * 10 + "px";
+
+// const refs = {
+//   openModalBtn: document.querySelector('');
+// };
+// is - open;
